@@ -61,14 +61,23 @@ const StyledButton = styled.button`
 `
 
 function NewNote(props) {
-
-    const [note, setNote] = useState({})
+    
     const [noteId, setNoteId] = useState(0)
+    const [note, setNote] = useState({
+        id: noteId,
+        title: "",
+        content: ""
+    })
 
     function handleSubmit(event) {
         event.preventDefault();
         setNoteId(noteId + 1)
         props.newNote(note)
+        setNote({
+            id: noteId,
+            title: "",
+            content: ""
+        })
     }
 
     function handleChange(event) {
@@ -79,16 +88,20 @@ function NewNote(props) {
         })
     }
 
+    console.log(note)
+
     return <CreateSection>
         <Newnote onSubmit={handleSubmit}>
             <StyledInput 
-                placeholder="Note title" 
+                placeholder="Note title"
+                value={note.title} 
                 name="title"
                 onChange={handleChange}
                 autoComplete="off"
                 />
             <StyledTextarea 
                 placeholder="Take a Note!" 
+                value={note.content} 
                 name="content"
                 onChange={handleChange}
                 />
